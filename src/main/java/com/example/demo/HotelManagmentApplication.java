@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class RestaurantManagmentApplication {
+public class HotelManagmentApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(RestaurantManagmentApplication.class, args);
+		SpringApplication.run(HotelManagmentApplication.class, args);
 	}
 }
