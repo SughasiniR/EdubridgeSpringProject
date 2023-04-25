@@ -1,7 +1,6 @@
-package com.example.demo.modelRes;
+package com.example.demo.model;
 
 import org.hibernate.annotations.DynamicUpdate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,24 +9,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
+//table annotation to create table
 @Table(name = "home_stay")
 @DynamicUpdate
-public class HomeStay {
+public class Hotel {
+	//id annotation to create id column and set to increase automatically
 	@Id
+	//set id to be unique
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private Integer id;
-	
+	//other attributes of hotel class
 	@Column(name = "hotel_name", nullable = false)
 	private String hotelName;
-	private int ratings;
+	private Integer ratings;
 	private String place;
 	private String state;
 	private String amenities;
-	private String meals;
-	private int contact;
-public HomeStay() {}
+	private String meals; 
+	private String contact;
+	private int cost;
+	private String location;
+	private String email;
 	
-	public HomeStay(String hotelName, String place, String state,int ratings,String amenities,String meals,int contact) {
+public Hotel() {}
+	
+	public Hotel(Integer id,String hotelName, String place, String state,Integer ratings,String amenities,String meals,String contact,Integer cost,String location,String email) {
+		super();
+		this.id=id;
 		this.hotelName = hotelName;
 		this.place = place;
 		this.state=state;
@@ -35,6 +44,16 @@ public HomeStay() {}
 		this.amenities=amenities;
 		this.meals=meals;
 		this.contact=contact;
+		this.cost=cost;
+		this.location=location;
+		this.email=email;
+	}
+	//getter setter methods for all attributes
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id=id;
 	}
 	
 	public int getRatings() {
@@ -69,11 +88,11 @@ public HomeStay() {}
 		this.meals = meals;
 	}
 
-	public int getContact() {
+	public String getContact() {
 		return contact;
 	}
 
-	public void setContact(int contact) {
+	public void setContact(String contact) {
 		this.contact = contact;
 	}
 
@@ -92,6 +111,29 @@ public HomeStay() {}
 	public void setAmenities(String amenities) {
 		this.amenities = amenities;
 	}
-	
+
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 }

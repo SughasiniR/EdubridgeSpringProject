@@ -1,12 +1,13 @@
 package com.example.demo.service;
+
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-
-import com.example.demo.modelRes.HomeStay;
+import com.example.demo.model.Hotel;
 import com.example.demo.repository.HotelRepo;
-import com.example.demo.serverRes.HotelServer;
+import com.example.demo.server.HotelServer;
+
+//specialization of component annotation, service annotation is used to create spring bean at service layer
 @Service
 public class HotelServiceImpl implements HotelServer{
 	HotelRepo hotelRepo;
@@ -15,18 +16,20 @@ public class HotelServiceImpl implements HotelServer{
 		this.hotelRepo = hotelRepo;
 	}
 
-	public HomeStay saveHotel(HomeStay hotel) {
+	public Hotel saveHotel(Hotel hotel) {
 		return hotelRepo.save(hotel);
 	}
 
 	@Override
-	public List<HomeStay> getHotelFromDb() {
+	public List<Hotel> getHotelFromDb() {
+		//System.out.println(hotelRepo.findAll());
 		return hotelRepo.findAll();
 	}
+	
 
 	@Override//5
-	public HomeStay getHotelById(int hotelId) {
-		Optional<HomeStay> hotel = hotelRepo.findById(hotelId);
+	public Hotel getHotelById(int hotelId) {
+		Optional<Hotel> hotel = hotelRepo.findById(hotelId);
 		if(hotel.isPresent()) {
 			return hotel.get();
 		}
@@ -34,12 +37,14 @@ public class HotelServiceImpl implements HotelServer{
 			return null;
 		}
 	}
+	
+	
 
 	@Override
-	public HomeStay updateHotelDetails(HomeStay newVal, int hotelId) {
-		Optional<HomeStay> hotel = hotelRepo.findById(hotelId);
+	public Hotel updateHotelDetails(Hotel newVal, int hotelId) {
+		Optional<Hotel> hotel = hotelRepo.findById(hotelId);
 		if(hotel.isPresent()) {
-			HomeStay existingHotel = hotel.get();  //'2', 'mny@123', 'abc', 'xyz'
+			Hotel existingHotel = hotel.get();  //'2', 'mny@123', 'abc', 'xyz'
 
 			existingHotel.setHotelName(newVal.getHotelName());
 			existingHotel.setPlace(newVal.getPlace());
@@ -48,6 +53,9 @@ public class HotelServiceImpl implements HotelServer{
 			existingHotel.setAmenities(newVal.getAmenities());
 			existingHotel.setMeals(newVal.getMeals());
 			existingHotel.setContact(newVal.getContact());
+			existingHotel.setCost(newVal.getCost());
+			existingHotel.setLocation(newVal.getLocation());
+			existingHotel.setEmail(newVal.getEmail());
 			hotelRepo.save(existingHotel);
 			return existingHotel;
 		}
@@ -58,10 +66,15 @@ public class HotelServiceImpl implements HotelServer{
 
 	@Override
 	public void deleteHotelpById(int hotelId) {
-		Optional<HomeStay> hotel = hotelRepo.findById(hotelId);
+		Optional<Hotel> hotel = hotelRepo.findById(hotelId);
 		if(hotel.isPresent()) {
 			hotelRepo.deleteById(hotelId);
 		}	
+	}
+	
+	@Override
+	public void deleteAll() {
+		hotelRepo.deleteAll();
 	}
 
 }
